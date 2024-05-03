@@ -1,16 +1,18 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { sendCookie } from "../utils/Features.js";
 
+// Register 
 
 export const Register = async(req, res)=>{
     const {name , email, password} = req.body
-    let user = User.findOne({email})
+    let user = await User.findOne({email})
 
     if(user){
         return res.status(404).json({
             success : false,
-            message : "User alreadu exist",
+            message : "User already exist",
         })
     }
 
@@ -18,20 +20,37 @@ export const Register = async(req, res)=>{
 
     user = await User.create({name, email, password : hashedPassword}) // password aise hi nhi HASHED PASSWORD karenge 
 
-    const token = jwt.sign({_id : user._id}, process.env.JWT_SECRET_KEY )
+    sendCookie(user, res, "Registered Successfully", 201);
 
-    // If we want ki Register hote hi Login ho jaye 
-    // to yahi se   "COOKIE" bhej denge 
-    res.status(201).cookie("token", token, {
-        httpOnly : true, 
-        maxAge : 1000*60*20  // this is 20 mins 
-    }).json({
-        success : true, 
-        message : "Registerd successfully", 
-    })
+    // const token = jwt.sign({_id : user._id}, process.env.JWT_SECRET_KEY )
+   // aage ka code dekhne ke README.MD PE /REGISTER/01 PE JAYE 
 }
 
+// Login 
+
 export const login = async(req,res)=> {
+
+   const { email, password} = req.body
+
+   const user = await User.findOne({email}).select("+password")  // +password means sbhi data mile + password bhi mile
+
+   if(!user){
+    return res.status(404).json({
+        success: false,
+        message: "User Does Not Exist", 
+    })
+   }
+
+   const isMatch = await bcrypt.compare(password, user.password)  // comparing entered vs stored password
+
+   if(!isMatch){
+    return res.send(404).json({
+        success: false,
+        message: "Invalid email or password"
+    })
+   }
+
+   sendCookie(user, res, `welcome ${user.name}`, 200)
 
 }
 
