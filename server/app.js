@@ -7,7 +7,7 @@ config()
 const app = express();
 // middleware
 app.use(express.json()); // this has to be use first 
-app.use(cookieParser)
+app.use(cookieParser())
 app.use("/users" ,userRouter)
 
 

@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
         type : String,
         require : true,
         unique : true,
-        select : false,
+        select : false,    // select use kiye h so hum directly password ka accesss nhi le skte 
+                          // access ke liye select("password") use karenge tabhi access milega 
     },
 
 },{timestamps: true})

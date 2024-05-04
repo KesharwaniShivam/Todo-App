@@ -1,6 +1,6 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
+
 import { sendCookie } from "../utils/Features.js";
 
 
@@ -9,24 +9,24 @@ import { sendCookie } from "../utils/Features.js";
 
 export const login = async(req,res,next)=> {
 
-   const { email, password} = req.body
+   const { email, password} = req.body;
 
-   const user = await User.findOne({email}).select("+password")  // +password means sbhi data mile + password bhi mile
+   const user = await User.findOne({email}).select("+password");  // +password means sbhi data mile + password bhi mile
 
    if(!user)
     return res.status(404).json({
         success: false,
         message: "Invalid Email or Password", 
-    }) 
+    }) ;
    
-    const isMatch = await bcrypt.compare(password, user.password) // comparing entered vs stored password
+    const Match = await bcrypt.compare(password, user.password); // comparing entered vs stored password
   // comparing entered vs stored password
 
-   if(!isMatch)
-    return res.send(404).json({
+   if(!Match)
+    return res.status(404).json({
         success: false,
         message: "Invalid email or password"
-    })
+    });
    
 
    sendCookie(user, res, `welcome ${user.name}`, 200)
@@ -58,16 +58,25 @@ export const Register = async(req, res)=>{
 
 // Get my detail
 
-// export const getMyDetail = (req, res)=>{
-//     const {token} = req.cookies;
-//     console.log(token)
+export const getMyDetail = async(req, res)=>{
+   
 
-//     res.status(200).json({
-//         success: true,
-//         message : "sdlkfjl"
-//     })
-// }
+    res.status(200).json({
+        success: true,
+        user : req.user
+    })
+}
 
+// Logout
+// isme token empty krke , turant expire kr denge 
+
+export const logout = (req, res)=>{
+
+    res.status(200).cookie("token", " ", {expires : new Date(Date.now())}).json({
+        success : true,
+    })
+
+}
 
 // find user
  export const findUser = async(req, res)=>{
