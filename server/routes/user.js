@@ -8,6 +8,7 @@ router.post("/new", Register)
 
 router.post("/login", login)
 
+// router.get("/me", getMyDetail)
 
 // router.get("/users/all",getAllUsers)
 

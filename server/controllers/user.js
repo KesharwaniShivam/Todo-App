@@ -3,6 +3,36 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendCookie } from "../utils/Features.js";
 
+
+
+// Login 
+
+export const login = async(req,res,next)=> {
+
+   const { email, password} = req.body
+
+   const user = await User.findOne({email}).select("+password")  // +password means sbhi data mile + password bhi mile
+
+   if(!user)
+    return res.status(404).json({
+        success: false,
+        message: "Invalid Email or Password", 
+    }) 
+   
+    const isMatch = await bcrypt.compare(password, user.password) // comparing entered vs stored password
+  // comparing entered vs stored password
+
+   if(!isMatch)
+    return res.send(404).json({
+        success: false,
+        message: "Invalid email or password"
+    })
+   
+
+   sendCookie(user, res, `welcome ${user.name}`, 200)
+
+}
+
 // Register 
 
 export const Register = async(req, res)=>{
@@ -26,36 +56,20 @@ export const Register = async(req, res)=>{
    // aage ka code dekhne ke README.MD PE /REGISTER/01 PE JAYE 
 }
 
-// Login 
+// Get my detail
 
-export const login = async(req,res)=> {
+// export const getMyDetail = (req, res)=>{
+//     const {token} = req.cookies;
+//     console.log(token)
 
-   const { email, password} = req.body
-
-   const user = await User.findOne({email}).select("+password")  // +password means sbhi data mile + password bhi mile
-
-   if(!user){
-    return res.status(404).json({
-        success: false,
-        message: "User Does Not Exist", 
-    })
-   }
-
-   const isMatch = await bcrypt.compare(password, user.password)  // comparing entered vs stored password
-
-   if(!isMatch){
-    return res.send(404).json({
-        success: false,
-        message: "Invalid email or password"
-    })
-   }
-
-   sendCookie(user, res, `welcome ${user.name}`, 200)
-
-}
+//     res.status(200).json({
+//         success: true,
+//         message : "sdlkfjl"
+//     })
+// }
 
 
-
+// find user
  export const findUser = async(req, res)=>{
   
     // console.log(req.query);
