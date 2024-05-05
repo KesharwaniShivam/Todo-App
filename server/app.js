@@ -1,5 +1,6 @@
 import express from "express"
 import userRouter from "./routes/user.js"
+import taskRouter from "./routes/task.js";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(express.json()); // this has to be use first 
 app.use(cookieParser())
 app.use("/users" ,userRouter)
+app.use("/tasks" ,taskRouter)
 
 
 // const port = 3000;
