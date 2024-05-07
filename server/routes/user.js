@@ -1,6 +1,6 @@
 import express from "express"
 import { User } from "../models/user.js";
-import { login,Register, findUser, getMyDetail, logout, } from "../controllers/user.js";
+import { login,Register, getMyDetail, logout, } from "../controllers/user.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get("/logout", logout)
 
 // router.post("/users/new",newUser)
 
-router.get("/userid/:id",findUser )
+// router.get("/userid/:id",findUser )
 
 // router.put("/userid/:id",updateUser )
 

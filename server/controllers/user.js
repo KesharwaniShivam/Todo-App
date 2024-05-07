@@ -2,6 +2,7 @@ import { User } from "../models/user.js";
 import bcrypt from "bcrypt"
 
 import { sendCookie } from "../utils/Features.js";
+import errorHandler from "../middlewares/error.js";
 
 
 
@@ -9,42 +10,53 @@ import { sendCookie } from "../utils/Features.js";
 
 export const login = async(req,res,next)=> {
 
-   const { email, password} = req.body;
+   try {
+    const { email, password} = req.body;
 
    const user = await User.findOne({email}).select("+password");  // +password means sbhi data mile + password bhi mile
 
-   if(!user)
-    return res.status(404).json({
-        success: false,
-        message: "Invalid Email or Password", 
-    }) ;
+//    if(!user)
+//     return res.status(404).json({
+//         success: false,
+//         message: "Invalid Email or Password", 
+//     }) ;
+    
+    if(!user) return next(new errorHandler("Invalid Email or Password", 404));
    
     const Match = await bcrypt.compare(password, user.password); // comparing entered vs stored password
-  // comparing entered vs stored password
 
-   if(!Match)
-    return res.status(404).json({
-        success: false,
-        message: "Invalid email or password"
-    });
+
+//    if(!Match)
+//     return res.status(404).json({
+//         success: false,
+//         message: "Invalid email or password"
+//     });
    
+    if(!Match) return next(new errorHandler("Invalid Email or Password", 404));
 
    sendCookie(user, res, `welcome ${user.name}`, 200)
 
+   }
+    catch (error) {
+    next(error);
+   }
 }
 
 // Register 
 
-export const Register = async(req, res)=>{
-    const {name , email, password} = req.body
+export const Register = async(req, res, next)=>{
+    try {
+        const {name , email, password} = req.body
     let user = await User.findOne({email})
 
-    if(user){
-        return res.status(404).json({
-            success : false,
-            message : "User already exist",
-        })
-    }
+    // if(user){
+    //     return res.status(404).json({
+    //         success : false,
+    //         message : "User already exist",
+    //     })
+    // }
+
+    if(user) return next(new errorHandler("User already exist", 404))
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -54,13 +66,16 @@ export const Register = async(req, res)=>{
 
     // const token = jwt.sign({_id : user._id}, process.env.JWT_SECRET_KEY )
    // aage ka code dekhne ke README.MD PE /REGISTER/01 PE JAYE 
+    }
+     catch (error) {
+        next(error);
+    }
 }
 
 // Get my detail
 
-export const getMyDetail = async(req, res)=>{
+export const getMyDetail = (req, res)=>{
    
-
     res.status(200).json({
         success: true,
         user : req.user
@@ -79,18 +94,18 @@ export const logout = (req, res)=>{
 }
 
 // find user
- export const findUser = async(req, res)=>{
+//  export const findUser = async(req, res)=>{
   
-    // console.log(req.query);
-    const{id} = req.params
-    // console.log(id)
-    const user = await User.findById(id)
+//     // console.log(req.query);
+//     const{id} = req.params
+//     // console.log(id)
+//     const user = await User.findById(id)
  
-    res.json({
-        success : true,
-        user,
-    })
- }
+//     res.json({
+//         success : true,
+//         user,
+//     })
+//  }
 
 // export const getAllUsers = async (req, res)=>{
 //     const users = await User.find({});

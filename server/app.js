@@ -3,6 +3,7 @@ import userRouter from "./routes/user.js"
 import taskRouter from "./routes/task.js";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
+import { errorMiddleware } from "./middlewares/error.js";
 
 config()
 const app = express();
@@ -18,6 +19,13 @@ app.use("/tasks" ,taskRouter)
 app.get("/", (req, res)=>{
     res.send("hellooo")
 })
+
+// error handler
+// kisi route me last function me "next" pass kr diye to idher hi aa jayega 
+// this has to be in last
+
+//errorMiddleware
+app.use(errorMiddleware)
 
 
 app.listen(process.env.PORT, ()=>{
