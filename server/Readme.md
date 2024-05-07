@@ -18,3 +18,10 @@ status ke sath hi COOKIE send kr denge
         success : true, 
         message : "Registerd successfully", 
     })
+
+3. sameSite : none // because we have different Urls for frontend and backend 
+  // be default sameSite : lax => means both frontend and backend has same Urls 
+
+4. if sameSite : none // so we have to set "secure" // secure : true ;
+
+

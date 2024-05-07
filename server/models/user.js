@@ -5,7 +5,7 @@ config();
 
 mongoose.connect(process.env.MONGODB_URI, {
     dbName : "Todoss",
-}).then(()=> console.log("Datbase connected")
+}).then((c)=> console.log(`Datbase connected ${c.connection.host}`)
 ).catch((e)=> console.log(e));
 
 const userSchema = new mongoose.Schema({
