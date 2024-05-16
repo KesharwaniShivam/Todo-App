@@ -8,12 +8,13 @@ function Login() {
 
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
-  const {isAuthenticated, setIsAuthenticated} = useContext(Context);
+  const {isAuthenticated, setIsAuthenticated ,loading , setLoading} = useContext(Context);
 
   const submitHandler = async(e) => {
     e.preventDefault();
     // console.log(name, email, password)
 
+    setLoading(true);
    try {
     const {data} = await axios.post(`${server}/users/login`,
     {
@@ -28,11 +29,13 @@ function Login() {
     )
     toast.success(data.message);
     setIsAuthenticated(true);
+    setLoading(false)
 
    } catch (error) {
     toast.error(error.response.data.message)
     console.log(error);
     setIsAuthenticated(false);
+    setLoading(false);
    }
   }
 
@@ -40,7 +43,7 @@ function Login() {
 
   return (
     <div className='sm:h-[80vh] h-[70vh] flex justify-center items-center '>
-        <section className='sm:h-[50vh] h-[40vh]  sm:w-[30vw] w-[30vh] bg-zinc-200 flex justify-center items-center  rounded-xl border-2 border-purple-800'>
+        <section className='sm:h-[45vh] h-[40vh]  sm:w-[30vw] w-[30vh] bg-purple-100 flex justify-center items-center  rounded-xl border-2 border-purple-800'>
             <form onSubmit={submitHandler}>
                 <div className='flex flex-col sm:w-[20vw] w-[50vw] text-lg py-[3vh] gap-6 tracking-tighter '>
                 
@@ -62,6 +65,7 @@ function Login() {
                
                 </div>
                 <button 
+                disabled= {loading}
                 type='submit'
                 className='bg-purple-800 px-6 py-2 rounded-md text-white font-semibold mb-[1.5vh]' 
                 >Login

@@ -6,10 +6,11 @@ import toast from 'react-hot-toast';
 
 function Header() {
 
-  const {isAuthenticated, setIsAuthenticated} = useContext(Context);
+  const {isAuthenticated, setIsAuthenticated, loading , setLoading} = useContext(Context);
 console.log(isAuthenticated)
 
 const logoutHandler = async() => {
+  setLoading(true);
  try {
    await axios.get("https://todo-app-7z6z.onrender.com/users/logout",
    {
@@ -18,11 +19,13 @@ const logoutHandler = async() => {
   );
   toast.success("logged Out Successfully");
   setIsAuthenticated(false);
+  setLoading(false);
 
  } catch (error) {
   toast.error(error.response.data.message)
   console.log(error);
   setIsAuthenticated(true);
+  setLoading(false);
  }
 }
   return (
@@ -39,7 +42,7 @@ const logoutHandler = async() => {
               <Link to={"/profile"}>Profile</Link>
              
               {
-              isAuthenticated ?  <button onClick={logoutHandler}>Logout</button> : <Link to={"/login"}>Login</Link>
+              isAuthenticated ?  <button disabled={loading} onClick={logoutHandler}>Logout</button> : <Link to={"/login"}>Login</Link>
               }
               {
               isAuthenticated ? "" : <Link to={"/register"}>Register</Link>
