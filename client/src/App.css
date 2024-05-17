@@ -7,6 +7,15 @@
 
 body{
   font-family: "Ubuntu Sans", sans-serif;
+  /* background-image: url("https://i.pinimg.com/736x/20/20/17/20201799b7608affcecd5aee09e0b5b5.jpg");
+  background-repeat: no-repeat;
+    background-size: contain; */
+ 
+}
+
+
+.mobile{
   
+  background-repeat: no-repeat;
 }
 

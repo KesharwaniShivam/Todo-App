@@ -12,6 +12,8 @@ import axios from "axios"
 import { Context, server } from "./main"
 
 
+
+
 function App() {
 
   const { setUser, setIsAuthenticated, setLoading } = useContext(Context)
@@ -35,16 +37,39 @@ function App() {
   }, [])
 
 
-  return <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-    <Toaster />
-  </BrowserRouter>
+  return (
+    <> 
+    <div className="w-full h-screen" style={{
+    backgroundImage : 'url("/todo5.jpg")', 
+    backgroundRepeat : "no-repeat",
+    backgroundSize : "contain"
+  
+    
+    }}>
+      <div className="w-full h-screen" style={{
+    backgroundImage : 'url("/todo6.jpg")', 
+    backgroundRepeat : "no-repeat",
+    backgroundSize : "contain",
+    backgroundPosition : "right"
+    
+    }}>
+    <BrowserRouter>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+
+
+      <Toaster />
+    </BrowserRouter>
+    </div>
+    </div>
+    </>
+  )
 }
 
 export default App

@@ -56,7 +56,7 @@ function Home() {
     <>
        <div className='addTodo'>
         <div className='sm:h-[50vh] h-[70vh] flex justify-center items-center '>
-        <section className='sm:h-[40vh] h-[40vh]  sm:w-[40vw] w-[30vh] bg-purple-100 flex justify-center items-center  rounded-xl border-2 border-purple-800'>
+        <section className='sm:h-[40vh] h-[40vh]  sm:w-[40vw] w-[30vh] bg-zinc-200 flex justify-center items-center  rounded-xl border-2 border-gray-800'>
             <form onSubmit={submitHandler}>
                 <div className='flex flex-col sm:w-[30vw] w-[50vw] text-lg py-[3vh] gap-6 tracking-tighter '>
                 
@@ -96,7 +96,7 @@ function Home() {
       <div className=' flex flex-col justify-center items-center'>
         {
           tasks.map((i)=>(
-            <div className='h-[10vh] w-[40vw] mb-5 border-2 border-purple-700 rounded-md p-3'>
+            <div className='h-[10vh] w-[40vw] mb-5 border-2 border-gray-800 rounded-md p-3'>
             <Tasks title = {i.title} description = {i.description}/>
             </div>
           ))
