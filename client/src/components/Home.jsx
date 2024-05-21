@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context, server } from '../main';
 import toast from 'react-hot-toast';
 import Tasks from './Tasks';
-import { Navigate } from 'react-router-dom';
+
 
 
 function Home() {
@@ -14,7 +14,7 @@ function Home() {
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false)
 
-  const {isAuthenticated} = useContext(Context)
+
 
   const updateHandler = async(id)=>{
 
@@ -90,7 +90,7 @@ function Home() {
     })
   }, [refresh])
 
-  if(!isAuthenticated) return <Navigate to={"/login"}/>
+  
   
   return (
     <>
