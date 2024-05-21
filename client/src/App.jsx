@@ -39,20 +39,15 @@ function App() {
 
   return (
     <> 
-    <div className="w-full h-screen" style={{
-    backgroundImage : 'url("/todo5.jpg")', 
+    <div className="w-full h-screen bg-zinc-800 " style={{
+    backgroundImage : 'url("/todo10.jpg")', 
     backgroundRepeat : "no-repeat",
-    backgroundSize : "contain"
+    backgroundSize : "cover",
+    
   
     
     }}>
-      <div className="w-full h-screen" style={{
-    backgroundImage : 'url("/todo6.jpg")', 
-    backgroundRepeat : "no-repeat",
-    backgroundSize : "contain",
-    backgroundPosition : "right"
-    
-    }}>
+      
     <BrowserRouter>
       <Header />
 
@@ -67,7 +62,7 @@ function App() {
       <Toaster />
     </BrowserRouter>
     </div>
-    </div>
+  
     </>
   )
 }

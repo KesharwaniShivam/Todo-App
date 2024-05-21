@@ -37,15 +37,15 @@ const logoutHandler = async() => {
           </h1>
 
           <article className='navlinks'>
-            <ul className='flex sm:gap-10 gap-4 sm:text-[3vh] text-[2.2vh] sm:font-thin font-md'>
-              <Link to={"/"}>Home</Link>
-              <Link to={"/profile"}>Profile</Link>
+            <ul className='flex sm:gap-10 gap-4 sm:text-[3vh] text-[2.2vh] sm:font-thin font-md '>
+              <Link className='hover:scale-110 hover:text-slate-300' to={"/"}>Home</Link>
+              <Link className='hover:scale-110 hover:text-slate-300' to={"/profile"}>Profile</Link>
              
               {
-              isAuthenticated ?  <button disabled={loading} onClick={logoutHandler}>Logout</button> : <Link to={"/login"}>Login</Link>
+              isAuthenticated ?  <button disabled={loading} onClick={logoutHandler} className='hover:scale-110 hover:text-slate-300'>Logout</button> : <Link className='hover:scale-110 hover:text-slate-300' to={"/login"}>Login</Link>
               }
               {
-              isAuthenticated ? "" : <Link to={"/register"}>Register</Link>
+              isAuthenticated ? "" : <Link className='hover:scale-110 hover:text-slate-300' to={"/register"}>Register</Link>
               }
 
               

@@ -95,13 +95,21 @@ function Home() {
   return (
     <>
        <div className='addTodo'>
-        <div className='sm:h-[50vh] h-[70vh] flex justify-center items-center '>
-        <section className='sm:h-[40vh] h-[35vh]  sm:w-[40vw] w-[32vh] bg-zinc-200  flex justify-center items-center  rounded-xl border-2  border-gray-800'>
+        <div className='sm:h-[60vh] h-[65vh] flex justify-center items-center '>
+        <section className='sm:h-[40vh] h-[35vh]  sm:w-[37vw] w-[32vh] bg-zinc-200  flex justify-center items-center  rounded-xl border-2  border-gray-800'
+        
+        style={{
+          backgroundImage : 'url("/todo15.jpg")', 
+          backgroundRepeat : "no-repeat",
+          backgroundSize : "cover",
+        
+          
+          }}>
             <form onSubmit={submitHandler}>
                 <div className='flex flex-col sm:w-[30vw] w-[50vw] text-lg py-[3vh] gap-6 tracking-tighter '>
                 
                 <input 
-                className='border-2 border-zinc-900'
+                className='border-2 border-zinc-900 rounded-md '
                 type="text" 
                 placeholder='Title'
                 value={title}
@@ -109,7 +117,7 @@ function Home() {
                 />
                 
                <input 
-               className='border-2 border-zinc-900' 
+               className='border-2 border-zinc-900 rounded-md' 
                type="text" 
                placeholder='Description'
                value={description}
@@ -120,7 +128,7 @@ function Home() {
                 <button 
                 disabled = {loader}
                 type='submit'
-                className='bg-purple-800 px-6 py-2 rounded-md text-white font-semibold mb-[1.5vh]' 
+                className='bg-purple-800 hover:bg-purple-900 px-6 py-2 rounded-md text-white font-semibold mb-[1.5vh]' 
                 >Add Task
                 </button>
 

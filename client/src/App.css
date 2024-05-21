@@ -3,6 +3,7 @@
 #root {
   margin: 0 ;
   padding: 0;
+  background-color: #0000;
 }
 
 body{
@@ -10,6 +11,7 @@ body{
   /* background-image: url("https://i.pinimg.com/736x/20/20/17/20201799b7608affcecd5aee09e0b5b5.jpg");
   background-repeat: no-repeat;
     background-size: contain; */
+   
  
 }
 
@@ -18,4 +20,6 @@ body{
   
   background-repeat: no-repeat;
 }
+
+
 
